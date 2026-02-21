@@ -12,4 +12,4 @@ RUN npm run build
 FROM nginx:1.26-alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+COPY default.conf.template /etc/nginx/templates/default.conf.template
