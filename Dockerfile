@@ -23,9 +23,11 @@ RUN rm -rf ./*
 # Copy build output
 COPY --from=build-stage /app/dist .
 
-# Copy your custom nginx config
+FROM nginx:alpine
+
+COPY dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
