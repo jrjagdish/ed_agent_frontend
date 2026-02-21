@@ -1,31 +1,19 @@
-# 1. Build stage
-FROM node:20-alpine AS build-stage
-WORKDIR /app
+# ---------- Stage 1: Build frontend ----------
+FROM node:20-alpine AS build
 
-# Update system packages to patch known vulnerabilities
-RUN apk update && apk upgrade
+WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
+
 COPY . .
 RUN npm run build
 
-# 2. Production stage
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
 
-# Update Nginx OS packages
-RUN apk update && apk upgrade
-
-# Clean default files
-RUN rm -rf ./*
-
-# Copy build output
-COPY --from=build-stage /app/dist .
-
+# ---------- Stage 2: Serve with nginx ----------
 FROM nginx:alpine
 
-COPY dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
