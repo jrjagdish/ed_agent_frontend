@@ -1,6 +1,4 @@
 FROM nginx:1.26-alpine
 
 COPY dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/templates/default.conf.template
-
-CMD ["sh", "-c", "envsubst '$PORT' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+COPY default.conf.template /etc/nginx/templates/default.conf.template
