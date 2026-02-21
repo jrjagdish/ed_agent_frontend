@@ -1,31 +1,25 @@
-# 1. Build stage
-FROM node:20-alpine AS build-stage
+# ---------- build stage ----------
+FROM node:20-alpine AS build
+
 WORKDIR /app
-
-# Update system packages to patch known vulnerabilities
-RUN apk update && apk upgrade
-
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
 
-# 2. Production stage
+
+# ---------- production stage ----------
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
 
-# Update Nginx OS packages
-RUN apk update && apk upgrade
+# Railway sets PORT automatically
+ENV PORT=8080
 
-# Clean default files
-RUN rm -rf ./*
+# Copy built frontend
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy build output
-COPY --from=build-stage /app/dist .
-
-# Copy your custom nginx config
+# Copy nginx config template
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
