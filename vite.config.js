@@ -3,7 +3,10 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 
-
-export default {
-  base: "/",
-};
+export default defineConfig({
+  plugins: [
+    react({
+      jsxRuntime: 'automatic'   // 👈 THIS IS THE FIX
+    })
+  ]
+})
