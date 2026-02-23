@@ -40,7 +40,7 @@ const DeveloperDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch("https://edagent-production-74a4.up.railway.app/usage-stats", {
+      const response = await fetch("https://ed-agent.onrender.com/usage-stats", {
         credentials: "include",
       });
       if (response.ok) {
@@ -65,7 +65,7 @@ const DeveloperDashboard = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://edagent-production-74a4.up.railway.app/api_key?name=${newKeyName}`,
+        `https://ed-agent.onrender.com/api_key?name=${newKeyName}`,
         { credentials: "include" },
       );
       const data = await response.json();

@@ -11,7 +11,7 @@ const Register = () => {
     e.preventDefault();
     setError("");
     try {
-      const response = await fetch("https://edagent-production-74a4.up.railway.app/register", {
+      const response = await fetch("https://ed-agent.onrender.com/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
