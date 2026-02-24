@@ -11,8 +11,9 @@ import Home from "./pages/home";
 import DeveloperDashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import ApiKeysPage from "./pages/Apikey";
 export default function Page() {
-  const cleanPages = ["/dashboard", "/login", "/register"];
+  const cleanPages = ["/dashboard", "/login", "/register", "/apiKeys"];
   const location = useLocation();
   const isDashboardPage = cleanPages.includes(location.pathname);
   return (
@@ -28,6 +29,7 @@ export default function Page() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/apiKeys" element={<ApiKeysPage />} />
           <Route path="/dashboard" element={<DeveloperDashboard />} />
         </Routes>
       </main>

@@ -13,7 +13,9 @@ import {
   X,
   Menu,
   BarChart3,
+
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   AreaChart,
   Area,
@@ -151,22 +153,14 @@ const DeveloperDashboard = () => {
                 <NavItem
                   icon={<Key size={16} />}
                   label="API Keys"
+                  href = "/apiKeys"
                   onClick={() => setIsMobileMenuOpen(false)}
                 />
-                <NavItem
-                  icon={<FileText size={16} />}
-                  label="Documentation"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                />
-                <div className="h-px bg-white/5 mx-2 my-4" />
-                <NavItem
-                  icon={<Settings size={16} />}
-                  label="Settings"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                />
+                
                 <NavItem
                   icon={<LogOut size={16} />}
                   label="Logout"
+                  href="/"
                   onClick={() => setIsMobileMenuOpen(false)}
                 />
               </nav>
@@ -382,13 +376,15 @@ const DeveloperDashboard = () => {
   );
 };
 
-const NavItem = ({ icon, label, active = false, onClick }) => (
+const NavItem = ({ icon, label, active = false, href, onClick }) => (
+  <Link to={href} onClick={onClick} className="nav-item-style" >
   <button
     onClick={onClick}
     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-black text-[10px] uppercase tracking-widest ${active ? "bg-white text-black shadow-lg" : "text-slate-500 hover:bg-white/5 hover:text-white"}`}
   >
     {icon} <span>{label}</span>
   </button>
+  </Link>
 );
 
 const BentoStat = ({ label, value, color }) => (
